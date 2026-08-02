@@ -31,7 +31,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 
 - [ ] No sections explain what a technology or concept *is* (the agent already knows)
 - [ ] No "this skill will help you..." or "in this guide we will..." preamble
-- [ ] Every sentence in `SKILL.md` is specific to this skill's workflow — not generic
+- [ ] Every sentence in `SKILL.md` is specific to this skill's workflow - not generic
 - [ ] `SKILL.md` is under 500 lines
 
 ---
@@ -50,7 +50,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 - [ ] Every process step describes *how to approach* the work (not just *what to produce*)
 - [ ] Steps with branching logic include explicit decision criteria
 - [ ] Steps with fragile operations include exact commands (not just descriptions)
-- [ ] The sequence of steps is complete — no gaps where the agent would have to guess
+- [ ] The sequence of steps is complete - no gaps where the agent would have to guess
 
 ---
 
@@ -58,7 +58,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 
 - [ ] No section in SKILL.md is >50 lines of dense table or reference content that is only situationally needed
 - [ ] If modular: all load triggers state *when* to load (not just *what* exists)
-- [ ] If modular: load triggers use this pattern — "Load `references/{file}.md` when {specific condition}"
+- [ ] If modular: load triggers use this pattern - "Load `references/{file}.md` when {specific condition}"
 - [ ] If modular: no vague triggers like "see references/ for more details"
 
 ---
@@ -67,7 +67,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 
 - [ ] Fragile/destructive steps include exact commands with flag names
 - [ ] Variable/creative steps include a default approach and at least one alternative
-- [ ] Prescriptiveness is not uniform — different steps have different levels based on fragility
+- [ ] Prescriptiveness is not uniform - different steps have different levels based on fragility
 
 ---
 

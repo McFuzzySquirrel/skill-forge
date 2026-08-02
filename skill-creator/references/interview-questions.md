@@ -1,6 +1,6 @@
 # Interview Questions
 
-Use these questions during Step 1. Ask them in order. Every answer drives a specific scaffolding decision — record them all.
+Use these questions during Step 1. Ask them in order. Every answer drives a specific scaffolding decision - record them all.
 
 ---
 
@@ -50,7 +50,7 @@ Use these questions during Step 1. Ask them in order. Every answer drives a spec
 - Drives: additional `## Gotchas` entries
 
 **C3. What goes wrong silently (no error, wrong result)?**
-- These are the highest-value gotchas — failures that look like success
+- These are the highest-value gotchas - failures that look like success
 - Drives: highest-priority `## Gotchas` entries
 
 ---

@@ -8,7 +8,7 @@ description: >
 
 # Skill: Create a New Copilot Skill
 
-You are guiding the user (or yourself) through building a new Copilot skill from scratch. The goal is not just to scaffold files — it is to produce a skill that passes the skill-review quality bar from the start. The workflow runs in five numbered steps with explicit decision points.
+You are guiding the user (or yourself) through building a new Copilot skill from scratch. The goal is not just to scaffold files - it is to produce a skill that passes the skill-review quality bar from the start. The workflow runs in five numbered steps with explicit decision points.
 
 Load `references/quality-axes.md` now. You will use the six quality axes throughout all five steps.
 
@@ -20,7 +20,7 @@ Load `references/quality-axes.md` now. You will use the six quality axes through
 
 Gather the information needed to build the skill well. Load `references/interview-questions.md` for the full question bank.
 
-Ask the questions in order. Record the answers — you will use them in Steps 2–5. Do not skip questions; each one drives a specific scaffolding decision.
+Ask the questions in order. Record the answers - you will use them in Steps 2–5. Do not skip questions; each one drives a specific scaffolding decision.
 
 **Minimum required before proceeding:**
 - Skill name (must match the directory name)
@@ -29,7 +29,7 @@ Ask the questions in order. Record the answers — you will use them in Steps 2�
 - Step count and whether any branching or conditional logic exists
 - Whether supporting reference material is needed
 
-> **Calibration note:** The interview is open-ended — guide without constraining. If the user is uncertain about step count or complexity, default to modular. It is easier to collapse a modular skill than to refactor a flat one after the fact.
+> **Calibration note:** The interview is open-ended - guide without constraining. If the user is uncertain about step count or complexity, default to modular. It is easier to collapse a modular skill than to refactor a flat one after the fact.
 
 ### Step 2: Template Selection
 
@@ -37,8 +37,8 @@ Based on the interview answers, choose the scaffold template:
 
 | Signal | Template |
 |--------|----------|
-| ≤3 steps, no branching, no reference material | **Flat** — single `SKILL.md` |
-| ≥4 steps, OR branching logic, OR supporting material | **Modular** — `SKILL.md` + `references/` |
+| ≤3 steps, no branching, no reference material | **Flat** - single `SKILL.md` |
+| ≥4 steps, OR branching logic, OR supporting material | **Modular** - `SKILL.md` + `references/` |
 
 State your choice and reasoning to the user before proceeding. Allow them to override.
 
@@ -54,10 +54,10 @@ Generate the skill files using the loaded template and the interview answers. Bu
 
 | Section | Quality axis | What to do |
 |---------|-------------|------------|
-| YAML frontmatter | — | `name` must match directory name; `description` must include trigger keywords |
+| YAML frontmatter | - | `name` must match directory name; `description` must include trigger keywords |
 | Opening paragraph | Context economy | State exactly what the skill does and when to use it. No generic preamble. |
 | `## Process` steps | Procedural clarity | Write *how to approach* each step, not just *what to produce*. Include decision criteria. |
-| `## Gotchas` | Gotchas coverage | Add at least two concrete, project-specific edge cases. Use exact pattern: `**{Failure name}.** {What goes wrong and the concrete fix.}` — never generic advice. |
+| `## Gotchas` | Gotchas coverage | Add at least two concrete, project-specific edge cases. Use exact pattern: `**{Failure name}.** {What goes wrong and the concrete fix.}` - never generic advice. |
 | Load triggers (modular only) | Progressive disclosure | Each trigger must say *when* to load, not just *what* exists. |
 | `## Validation` | Validation | Include a self-check checklist or concrete commands the agent can run. |
 | Prescriptiveness level | Calibration | Fragile/destructive ops → exact commands. Variable/creative ops → defaults + escape hatches. |
@@ -111,7 +111,7 @@ After passing, confirm the install path and remind the user to copy the skill to
 
 - **`name` must exactly match the directory name.** A mismatch breaks skill activation. Check this before Step 5.
 - **Load triggers must say *when*, not just *what*.** "Load `references/api-errors.md` if the API returns a non-200" is good. "See references/ for more" is useless and will score a 1 on progressive disclosure.
-- **Do not move the first ~100 lines of SKILL.md to references/.** That content defines the skill's purpose and trigger conditions — it must stay inline even if it is verbose.
+- **Do not move the first ~100 lines of SKILL.md to references/.** That content defines the skill's purpose and trigger conditions - it must stay inline even if it is verbose.
 - **Gotchas must be concrete.** "Handle errors appropriately" scores a 1. "If the `users` table uses soft deletes, queries must include `WHERE deleted_at IS NULL`" scores a 3.
 - **skill-review will not run on a skill that has no SKILL.md.** Ensure the file exists and has valid YAML frontmatter before Step 5.
 - **Do not skip Step 4.** The pre-flight check catches issues that skill-review will flag. Fixing them before the audit saves a loop.
