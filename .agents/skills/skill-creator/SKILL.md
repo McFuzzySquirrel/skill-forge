@@ -1,9 +1,6 @@
 ---
 name: skill-creator
-description: >
-  Guide an agent through creating a new, well-structured Copilot skill from a rough idea.
-  Runs a structured interview, applies the skill-review quality rubric during scaffolding,
-  and validates the output with skill-review. Produces a ready-to-use skill package.
+description: Guide an agent through creating a new, well-structured Copilot skill from a rough idea. Runs a structured interview, applies the skill-review quality rubric during scaffolding, and validates the output with skill-review. Produces a ready-to-use skill package.
 ---
 
 # Skill: Create a New Copilot Skill

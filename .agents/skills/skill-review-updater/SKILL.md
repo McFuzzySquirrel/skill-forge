@@ -1,8 +1,6 @@
 ---
 name: skill-review-updater
-description: >
-  Check for updates in agentskills.io for skill-review by comparing latest best practices against the
-  skill-review rubric, then produce a prioritized plan for new checks that keep skill-review relevant and accurate.
+description: "Check for updates in agentskills.io for skill-review by comparing latest best practices against the skill-review rubric, then produce a prioritized plan for new checks that keep skill-review relevant and accurate."
 ---
 
 # Skill: Skill Review Updater
