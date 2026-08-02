@@ -1,10 +1,6 @@
 ---
 name: skill-review
-description: >
-  Audit skills in a project against agentskills.io best practices.
-  Scores each skill on context economy, gotchas coverage, procedural clarity,
-  progressive disclosure, calibration, and validation. Produces a reviewable audit
-  report and can optionally apply targeted improvements.
+description: "Audit skills in a project against agentskills.io best practices. Scores each skill on context economy, gotchas coverage, procedural clarity, progressive disclosure, calibration, and validation. Produces a reviewable audit report and can optionally apply targeted improvements."
 ---
 
 # Skill: Review Skills Against Best Practices
