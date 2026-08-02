@@ -12,6 +12,7 @@ skill-forge gives you the tooling to create, review, and improve Copilot agent s
 |---------|-------------|
 | [`skill-review`](./skill-review) | Audits existing skills against the agentskills.io rubric. Scores six quality axes and produces an actionable report. Can apply approved improvements. |
 | [`skill-creator`](./skill-creator) | Guides an agent through creating a new skill from a rough idea. Runs a structured interview, picks the right scaffold, and validates output with `skill-review`. |
+| [`skill-review-updater`](./skill-review-updater) | Compares latest agentskills.io guidance to the current `skill-review` rubric and produces a prioritized plan for adding or updating checks. |
 
 More tools will be added to the suite over time.
 
@@ -34,6 +35,19 @@ Every tool in this suite is built around the same six quality axes from [agentsk
 
 ## Getting started
 
+### Install skills in your own repository
+
+Copy any skill folder into your target repo under `.agents/skills/<skill-name>/`.
+
+```bash
+# from this repository root
+cp -r skill-review/         /path/to/your-project/.agents/skills/skill-review/
+cp -r skill-creator/        /path/to/your-project/.agents/skills/skill-creator/
+cp -r skill-review-updater/ /path/to/your-project/.agents/skills/skill-review-updater/
+```
+
+Then run your Copilot agent from inside that target repository and invoke skills with natural language prompts.
+
 ### Review existing skills
 
 ```bash
@@ -52,6 +66,16 @@ cp -r skill-creator/ /path/to/your-project/.agents/skills/skill-creator/
 
 # Then ask your Copilot agent:
 # "Create a new skill for [your idea]"
+```
+
+### Keep `skill-review` aligned with latest best practices
+
+```bash
+# Install the updater skill into your project
+cp -r skill-review-updater/ /path/to/your-project/.agents/skills/skill-review-updater/
+
+# Then ask your Copilot agent:
+# "check for updates in agentskills.io for skill-review"
 ```
 
 ### Use the skill-review script directly
@@ -75,9 +99,13 @@ skill-forge/
 ├── skill-creator/         # Creation workflow tool
 │   ├── SKILL.md
 │   └── references/        # Interview questions, templates, quality axes, preflight checklist
+├── skill-review-updater/  # Plans rubric updates for skill-review from latest best practices
+│   ├── SKILL.md
+│   └── references/        # Baseline, mapping, fallback, and validation guidance
 └── .agents/skills/        # Installed copies (ready to use in this repo)
     ├── skill-review/
-    └── skill-creator/
+    ├── skill-creator/
+    └── skill-review-updater/
 ```
 
 ---
@@ -87,4 +115,3 @@ skill-forge/
 Skills in this suite are themselves subject to the `skill-review` rubric - each must score ≥ 2.0 across all six axes before merging.
 
 To contribute a new tool to the suite, use `skill-creator` to scaffold it, then open a PR.
-
