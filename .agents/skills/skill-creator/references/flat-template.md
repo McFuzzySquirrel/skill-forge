@@ -25,7 +25,7 @@ No generic preamble. No "this skill helps you..." fluff.}
 
 ### Step 1: {Step Name}
 
-{How to approach this step — not just what to produce. Include decision criteria if any.}
+{How to approach this step - not just what to produce. Include decision criteria if any.}
 
 **Inputs needed:**
 - {input 1}
@@ -57,7 +57,7 @@ No generic preamble. No "this skill helps you..." fluff.}
 
 - **{Specific edge case 1}.** {Concrete explanation of what goes wrong and how to avoid it.}
 - **{Specific edge case 2}.** {Concrete explanation.}
-- **{Specific edge case 3 — optional but recommended}.** {Concrete explanation.}
+- **{Specific edge case 3 - optional but recommended}.** {Concrete explanation.}
 
 ---
 
@@ -65,7 +65,7 @@ No generic preamble. No "this skill helps you..." fluff.}
 
 After completing the process, verify:
 
-- [ ] {Concrete observable outcome 1 — something the agent can check}
+- [ ] {Concrete observable outcome 1 - something the agent can check}
 - [ ] {Concrete observable outcome 2}
 - [ ] {Run command or inspect output: e.g., `npm test`, `cat output.json | jq '.status'`}
 
@@ -79,4 +79,4 @@ If any item fails: {specific recovery action}.
 - **Context economy:** Remove any placeholder sections that genuinely do not apply. An empty `## Gotchas` with no real content scores worse than omitting the section.
 - **Procedural clarity:** Each step must describe *how to approach* the work, not just *what to produce*. "Generate the migration file" is a declaration. "Run `npm run db:diff`, inspect the output for unintended drops, then save to `migrations/`" is procedural.
 - **Calibration:** For destructive steps, include the exact command. For creative steps, give a default approach and an escape hatch.
-- **Validation:** At least one item in the checklist must be a command or observable artifact — not just "make sure it works."
+- **Validation:** At least one item in the checklist must be a command or observable artifact - not just "make sure it works."

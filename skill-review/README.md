@@ -7,7 +7,7 @@ Audit your project's skills against [agentskills.io best practices](https://agen
 - When applying changes, the agent first presents a short review plan before editing anything
 - Supports GitHub, GitLab, Azure DevOps, and stdout output
 - Works as a standalone skill package your AI agent can run autonomously
-- Zero runtime cost — fully static heuristics, no LLM API needed
+- Zero runtime cost - fully static heuristics, no LLM API needed
 
 ---
 
@@ -69,7 +69,7 @@ cp -r skill-review/templates/skills/skill-review .agents/skills/
 cd .agents/skills/skill-review
 npm install
 
-# 3. Run immediately — auto-detects the git root as project root
+# 3. Run immediately - auto-detects the git root as project root
 npm run skill-review -- --provider stdout --min-score 1.5
 ```
 
@@ -101,8 +101,8 @@ npm run skill-review -- --provider stdout
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--provider <name>` | `-p` | `stdout` | Output target: `github`, `gitlab`, `ado`, `stdout` |
-| `--files <paths...>` | `-f` | — | One or more explicit `SKILL.md` paths to audit |
-| `--skills-dir <path>` | `-d` | — | Root folder to scan for skills; overrides auto-detection |
+| `--files <paths...>` | `-f` | - | One or more explicit `SKILL.md` paths to audit |
+| `--skills-dir <path>` | `-d` | - | Root folder to scan for skills; overrides auto-detection |
 | `--min-score <score>` | `-s` | `1.5` | Warn when any skill scores below this value (1.0–3.0) |
 | `--fail-below` | | `false` | Exit with code 1 if any skill is below `--min-score` |
 | `--root <path>` | `-r` | git root | Project root for git diff and relative path resolution |
@@ -111,8 +111,8 @@ npm run skill-review -- --provider stdout
 
 When neither `--files` nor `--skills-dir` is provided, the tool resolves which skills to audit in this order:
 
-1. **Changed files** — runs `git diff` against the PR merge base and finds all `SKILL.md` files that were added or modified.
-2. **All skills in a standard directory** — if no changed files are found, scans the first directory that exists and contains at least one `SKILL.md`:
+1. **Changed files** - runs `git diff` against the PR merge base and finds all `SKILL.md` files that were added or modified.
+2. **All skills in a standard directory** - if no changed files are found, scans the first directory that exists and contains at least one `SKILL.md`:
    - `.agents/skills/`
    - `skills/`
    - `.opencode/skills/`
@@ -161,9 +161,9 @@ Each skill is scored 1–3 on six axes. The overall score is the average, rounde
 | **Validation** | No verification step | `## Validation` with at least one checkbox | Checklist of 3+ steps with a script or self-check |
 
 **Score tiers:**
-- 2.5–3.0 🟢 Strong — follows best practices well
-- 1.5–2.4 🟡 Adequate — works but has improvement opportunities
-- 1.0–1.4 🔴 Needs work — significant gaps against best practices
+- 2.5–3.0 🟢 Strong - follows best practices well
+- 1.5–2.4 🟡 Adequate - works but has improvement opportunities
+- 1.0–1.4 🔴 Needs work - significant gaps against best practices
 
 ---
 

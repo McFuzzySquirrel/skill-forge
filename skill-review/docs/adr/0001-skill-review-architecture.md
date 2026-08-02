@@ -29,7 +29,7 @@ Score skill files using deterministic text heuristics (regex patterns, line coun
 
 Static heuristics cannot understand semantics. A skill file could satisfy every regex pattern yet still contain bad advice. The rubric is a floor check, not a comprehensive review. An LLM-assisted review layer can be layered on top without replacing this tool.
 
-**Note:** That agent/LLM layer already exists. `SKILL.md` (the portable agent skill shipped with this package) is exactly that layer — it instructs an AI agent to read each skill file, apply semantic judgment using the same six-axis rubric, and produce a richer, context-aware audit. The two layers are complementary:
+**Note:** That agent/LLM layer already exists. `SKILL.md` (the portable agent skill shipped with this package) is exactly that layer - it instructs an AI agent to read each skill file, apply semantic judgment using the same six-axis rubric, and produce a richer, context-aware audit. The two layers are complementary:
 
 | Layer | Where | Driven by | When it runs |
 |-------|-------|-----------|--------------|
@@ -68,12 +68,12 @@ PR comments and report output are posted through a pluggable `Provider` interfac
 ### Rationale
 
 - Each CI platform has a different API for posting PR comments. Decoupling output from scoring keeps `rubric.ts` pure and testable.
-- Adding support for a new platform (e.g., Bitbucket) requires only a new file in `scripts/providers/` — no changes to the audit logic.
+- Adding support for a new platform (e.g., Bitbucket) requires only a new file in `scripts/providers/` - no changes to the audit logic.
 - The `stdout` provider makes local runs trivially simple without any CI credentials.
 
 ---
 
-## Decision 4: TypeScript with `tsx` at runtime — no compile step
+## Decision 4: TypeScript with `tsx` at runtime - no compile step
 
 ### Decision
 
@@ -109,7 +109,7 @@ When scoring `Progressive disclosure` and `Validation`, the auditor checks wheth
 
 ### Rationale
 
-A skill author may have already created a `references/` directory with files but not yet linked them all from `SKILL.md`. Without the on-disk check, the tool would incorrectly score such a skill at 1 and suggest "create a references/ directory" — contradicting the existing structure. The fix:
+A skill author may have already created a `references/` directory with files but not yet linked them all from `SKILL.md`. Without the on-disk check, the tool would incorrectly score such a skill at 1 and suggest "create a references/ directory" - contradicting the existing structure. The fix:
 
 - Boosts the score appropriately when the directory exists (existence counts as partial credit).
 - Replaces the "create a directory" suggestion with "link your existing files with load triggers".
@@ -151,7 +151,7 @@ The tool ships with two complementary review layers. The diagram below shows how
 flowchart TD
     A([skill file<br/>SKILL.md]) --> B
 
-    subgraph Layer1["Layer 1 — Static Heuristic Tool (CI / CLI)"]
+    subgraph Layer1["Layer 1 - Static Heuristic Tool (CI / CLI)"]
         B["rubric.ts\n(regex · line counts · section detection)"]
         B --> C["detect.ts\n(on-disk folder presence)"]
         C --> D["skill-review.ts\n(orchestrate + score)"]
@@ -161,14 +161,14 @@ flowchart TD
         E -->|stdout| H[Terminal output]
     end
 
-    subgraph Layer2["Layer 2 — Agent Skill (on-demand, LLM-driven)"]
+    subgraph Layer2["Layer 2 - Agent Skill (on-demand, LLM-driven)"]
         I["SKILL.md\n(agent instructions)"]
         I --> J["AI agent reads each\nskill file + references"]
         J --> K["Applies same six-axis rubric\nwith semantic judgment"]
         K --> L["Audit report +\nsuggested improvements"]
         L --> M{user approval?}
         M -->|yes| N[Apply changes]
-        M -->|no| O[Stop — report only]
+        M -->|no| O[Stop - report only]
     end
 
     A --> I
@@ -177,4 +177,4 @@ flowchart TD
     style Layer2 fill:#f0fff4,stroke:#3a7d44
 ```
 
-**Key principle:** Layer 1 is a *floor check* — fast, free, reproducible. Layer 2 is a *ceiling check* — semantic, contextual, human-in-the-loop. Neither replaces the other.
+**Key principle:** Layer 1 is a *floor check* - fast, free, reproducible. Layer 2 is a *ceiling check* - semantic, contextual, human-in-the-loop. Neither replaces the other.

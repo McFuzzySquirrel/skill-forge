@@ -49,7 +49,7 @@ Load `references/{step1-detail}.md` when {specific condition that makes the deta
 
 {Branching example:}
 - If {condition A}: {do X}
-- If {condition B}: {do Y} — load `references/{branch-b-detail}.md` for the full procedure
+- If {condition B}: {do Y} - load `references/{branch-b-detail}.md` for the full procedure
 
 **Output:**
 - {concrete deliverable}
@@ -111,7 +111,7 @@ For each load trigger in `SKILL.md`, create the corresponding file. Use this pat
 
 > Load when: {exact condition from the load trigger in SKILL.md}
 
-{Content — this is where the bulk material goes: tables, long checklists, schemas, templates,
+{Content - this is where the bulk material goes: tables, long checklists, schemas, templates,
 error code listings, etc.}
 ```
 
@@ -133,4 +133,4 @@ error code listings, etc.}
 - **Load triggers must be specific.** "Load `references/api-errors.md` if the API returns a non-200 status code" is correct. "See `references/` for details" scores a 1 on progressive disclosure.
 - **Don't over-reference.** If a section is under 30 lines and always needed, keep it inline. References are for content that is situationally needed or would bulk up SKILL.md past 500 lines.
 - **Max one level of reference chain.** A reference file should not load another reference file. All chaining must be explicit from `SKILL.md`.
-- **Keep the first ~100 lines of SKILL.md inline.** That content defines the skill's trigger and purpose — the agent must read it before deciding whether to load references.
+- **Keep the first ~100 lines of SKILL.md inline.** That content defines the skill's trigger and purpose - the agent must read it before deciding whether to load references.

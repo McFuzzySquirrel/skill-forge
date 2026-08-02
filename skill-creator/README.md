@@ -1,6 +1,6 @@
 # skill-creator
 
-> Part of the [skill-forge](../README.md) suite — tools for forging agent skills based on [agentskills.io](https://agentskills.io) best practices.
+> Part of the [skill-forge](../README.md) suite - tools for forging agent skills based on [agentskills.io](https://agentskills.io) best practices.
 
 A Copilot skill that guides an agent through creating a new, well-structured Copilot skill from a rough idea.
 
@@ -10,11 +10,11 @@ The workflow is more than a scaffold. It runs a structured interview, applies th
 
 ## What it does
 
-1. **Interviews** the user — structured question bank covering name, purpose, trigger, complexity, gotchas, validation, and calibration signals
-2. **Selects** the right scaffold — flat (simple) or modular (complex) based on the interview answers
-3. **Scaffolds** the skill files — each section built intentionally against the six quality axes
-4. **Pre-flight checks** — works through a blocker checklist before the formal audit
-5. **Validates** with `skill-review` — loops until all axes score ≥ 2.0; fails gracefully if not installed
+1. **Interviews** the user - structured question bank covering name, purpose, trigger, complexity, gotchas, validation, and calibration signals
+2. **Selects** the right scaffold - flat (simple) or modular (complex) based on the interview answers
+3. **Scaffolds** the skill files - each section built intentionally against the six quality axes
+4. **Pre-flight checks** - works through a blocker checklist before the formal audit
+5. **Validates** with `skill-review` - loops until all axes score ≥ 2.0; fails gracefully if not installed
 
 ---
 
@@ -56,7 +56,7 @@ The agent will load `skill-creator` and begin the structured interview.
 
 ```
 skill-creator/
-├── SKILL.md                        # Main skill — 5-step process with load triggers
+├── SKILL.md                        # Main skill - 5-step process with load triggers
 ├── README.md                       # This file
 ├── CHANGELOG.md
 └── references/
@@ -71,16 +71,16 @@ skill-creator/
 
 ## Quality axes
 
-Built around — and enforces — the same six axes used by `skill-review`:
+Built around - and enforces - the same six axes used by `skill-review`:
 
 | Axis | What it checks |
 |------|---------------|
 | Context economy | No generic explanations; specific and project-focused |
-| Gotchas coverage | Concrete, specific edge cases — not generic advice |
+| Gotchas coverage | Concrete, specific edge cases - not generic advice |
 | Procedural clarity | *How to approach* the work, not just *what to produce* |
 | Progressive disclosure | Bulk content in `references/`; specific load triggers |
 | Calibration | Prescriptiveness matched to operation fragility |
-| Validation | Concrete, runnable checks — not "make sure it works" |
+| Validation | Concrete, runnable checks - not "make sure it works" |
 
 `skill-creator` itself scores 3/3 on all six axes (verified by `skill-review`).
 

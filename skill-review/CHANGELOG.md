@@ -15,7 +15,7 @@ Version numbers follow [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
-- **References folder detection** (`rubric.ts`): `hasRefsDir`, `hasAssetsDir`, and `hasScriptsDir` were passed into `AuditInput` but never forwarded to the scoring or suggestion functions — on-disk folder presence was silently ignored. All three flags are now passed through correctly.
+- **References folder detection** (`rubric.ts`): `hasRefsDir`, `hasAssetsDir`, and `hasScriptsDir` were passed into `AuditInput` but never forwarded to the scoring or suggestion functions - on-disk folder presence was silently ignored. All three flags are now passed through correctly.
 - **Progressive disclosure scoring**: a skill with an existing `references/` or `assets/` directory on disk now scores ≥ 2, even if the folder is not yet linked in `SKILL.md`. Previously it would score 1 and receive a misleading "Create a references/ directory" suggestion.
 - **Validation scoring**: a `scripts/` directory present on disk now counts the same as a `scripts/` reference in `SKILL.md` when computing the validation score.
 - **Misleading suggestion text**: when a `references/` or `assets/` directory already exists on disk and the progressive disclosure score is 1, the suggestion now reads "Link your existing `references/` files in `SKILL.md` and add load triggers" instead of "Create a `references/` directory".
@@ -27,7 +27,7 @@ Version numbers follow [Semantic Versioning](https://semver.org/).
 ### Documentation
 
 - Added comprehensive `README.md` with full installation guide, CLI reference table, auto-detection logic explanation, providers table, troubleshooting section, and architecture pointer.
-- Added `docs/adr/0001-skill-review-architecture.md` — Architecture Decision Record covering static heuristics vs LLM scoring, the six-axis rubric design, the modular provider pattern, TypeScript + tsx runtime choice, portable skill package design, and on-disk folder detection rationale.
+- Added `docs/adr/0001-skill-review-architecture.md` - Architecture Decision Record covering static heuristics vs LLM scoring, the six-axis rubric design, the modular provider pattern, TypeScript + tsx runtime choice, portable skill package design, and on-disk folder detection rationale.
 - Added `CHANGELOG.md` (this file).
 
 ---
@@ -38,12 +38,12 @@ Version numbers follow [Semantic Versioning](https://semver.org/).
 
 - Initial release of `skill-review`.
 - Six-axis rubric scoring each skill 1–3 on: Context economy, Gotchas coverage, Procedural clarity, Progressive disclosure, Calibration, Validation.
-- `scripts/rubric.ts` — heuristic scoring engine and Markdown report formatter.
-- `scripts/skill-review.ts` — CLI entry point with `--provider`, `--files`, `--min-score`, `--fail-below`, and `--root` flags.
-- `scripts/detect.ts` — skill file discovery, git diff–based change detection, and path validation helpers.
+- `scripts/rubric.ts` - heuristic scoring engine and Markdown report formatter.
+- `scripts/skill-review.ts` - CLI entry point with `--provider`, `--files`, `--min-score`, `--fail-below`, and `--root` flags.
+- `scripts/detect.ts` - skill file discovery, git diff–based change detection, and path validation helpers.
 - Modular provider pattern with implementations for GitHub (`github.ts`), GitLab (`gitlab.ts`), Azure DevOps (`ado.ts`), and stdout (`stdout.ts`).
 - CI example workflows for GitHub Actions (`ci-examples/github-actions.yml`) and Azure DevOps (`ci-examples/azure-pipelines.yml`).
-- Portable standalone skill package at `templates/skills/skill-review/` — a self-contained directory with `SKILL.md`, embedded scripts, and `package.json` that can be dropped into any project's skill directory.
+- Portable standalone skill package at `templates/skills/skill-review/` - a self-contained directory with `SKILL.md`, embedded scripts, and `package.json` that can be dropped into any project's skill directory.
 - TypeScript throughout; validated with `npm run typecheck` (`tsc --noEmit`).
 
 [Unreleased]: https://github.com/McFuzzySquirrel/experimental-skills/compare/v1.1.0...HEAD
