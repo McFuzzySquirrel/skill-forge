@@ -1,13 +1,15 @@
 ---
 name: skill-review
-description: "Audit skills in a project against agentskills.io best practices. Scores each skill on context economy, gotchas coverage, procedural clarity, progressive disclosure, calibration, and validation. Produces a reviewable audit report and can optionally apply targeted improvements."
+description: >
+  Audit skills in a project against agentskills.io best practices.
+  Scores each skill on context economy, gotchas coverage, procedural clarity,
+  progressive disclosure, calibration, and validation. Produces a reviewable audit
+  report and can optionally apply targeted improvements.
 ---
 
 # Skill: Review Skills Against Best Practices
 
 You are auditing skills against the [agentskills.io best practices](https://agentskills.io/skill-creation/best-practices). Your job is to read each skill, score it against a structured rubric, produce a reviewable audit report, and - only when the user explicitly approves - apply targeted improvements.
-
-The audit report includes a deterministic reviewer-style proxy score when no explicit human review is available. Treat that score as a proxy, not a literal human judgment.
 
 ## Embedded Tooling (Portable Install)
 
@@ -52,12 +54,33 @@ For each skill, read `SKILL.md` and any `references/`, `scripts/`, or `assets/` 
 
 Also check:
 - [ ] `name` matches parent directory name
-- [ ] `description` is specific and includes keywords for activation
+- [ ] `name` follows the Agent Skills format: 1-64 lowercase letters, numbers, and hyphens, with no leading, trailing, or consecutive hyphens
+- [ ] `description` is non-empty, no longer than 1024 characters, and states when the skill applies
 - [ ] YAML frontmatter is valid
 - [ ] File references use relative paths from skill root
 - [ ] No more than one level of reference chain depth
+- [ ] Bundled scripts are non-interactive, document `--help` or usage, and emit actionable errors; use structured output and safety controls when applicable
+- [ ] Skills that produce artifacts or execute workflows have realistic eval cases, an edge case, and observable assertions, unless an explicit exemption is justified
 
-Before applying any edits, write a short review plan that lists the top issues, the proposed changes, and the reason for each change. Present that plan to the user first.
+  Eval cases live in `evals/evals.json` at the skill root:
+
+  ```json
+  {
+    "skill": "{skill-name}",
+    "cases": [
+      {
+        "id": "kebab-case-id",
+        "kind": "happy-path",
+        "prompt": "Realistic request a user would make.",
+        "assertions": ["Observable behavior the response must show."]
+      }
+    ]
+  }
+  ```
+
+  Behavior-heavy skills need at least one `happy-path` and one `edge-case` case. `kind` accepts only those two values, so a typo reads as a typo instead of a third category. Each assertion names something visible in the response — a decision made, a command run, a file written — not an internal intention.
+
+  Record an exemption in the skill's own `## Validation` section as `Eval exemption: {why the skill is informational}`. A recorded exemption satisfies this check; a missing `evals/` directory with no such line does not.
 
 ### Step 3: Produce Audit Report
 
@@ -147,6 +170,17 @@ After applying changes, regenerate the audit report with updated scores. Show th
 - **Don't move content that's essential for activation.** The first ~100 lines of `SKILL.md` define the skill's purpose and trigger conditions. Keep that inline even if it's verbose.
 - **Load triggers must be specific.** "Load `references/api-errors.md` if the API returns a non-200 status code" is good. "See references/ for details" is useless.
 - **Validation scripts in `scripts/` must be self-contained.** Don't recommend scripts the user can't run without missing dependencies.
+- **Agent-facing scripts must not prompt for TTY input.** Use flags, environment variables, or stdin and return a clear error with usage guidance when required input is missing.
+- **Keep script output machine-readable where it is consumed by another step.** Put structured results on stdout and diagnostics on stderr so the agent can recover from failures.
+- **Do not require eval infrastructure for purely informational skills.** Record the reason for an exemption instead of treating the absence of `evals/evals.json` as an automatic failure.
+
+## Validation
+
+- [ ] Run the targeted rubric tests from the skill directory: `npm test`
+- [ ] Run the type check: `npm run typecheck`
+- [ ] Confirm every structural finding names the violated metadata or activation rule
+- [ ] For behavior-heavy skills, inspect eval cases and assertions or record an explicit exemption
+- [ ] Re-run the audit after fixing findings and confirm the report no longer contains stale structural issues
 
 ---
 

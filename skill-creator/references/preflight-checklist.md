@@ -11,7 +11,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 - [ ] `SKILL.md` exists in the skill directory **[BLOCKER]**
 - [ ] YAML frontmatter is present and valid (no parse errors) **[BLOCKER]**
 - [ ] `name` in frontmatter exactly matches the parent directory name **[BLOCKER]**
-- [ ] `description` is present and at least one sentence long **[BLOCKER]**
+- [ ] `description` is present, single-line, double-quoted, and at least one sentence long (no YAML block scalars like `>`) **[BLOCKER]**
 - [ ] If modular: `references/` directory exists with at least one `.md` file
 - [ ] No circular references (a reference file does not load another reference file)
 - [ ] All file paths referenced in load triggers exist on disk
@@ -77,6 +77,7 @@ Work through every item. For each failure: state what is wrong, fix it immediate
 - [ ] At least one validation item is a concrete command or observable artifact
 - [ ] At least one validation item is a checkable file or output (not just "make sure it works")
 - [ ] If the skill has failure modes: at least one recovery path is documented
+- [ ] Evals or an exemption is recorded: behavior-heavy skills have `evals/evals.json` with at least one `happy-path` and one `edge-case` case, each with observable assertions; informational skills state `Eval exemption: {reason}` in `## Validation` **[BLOCKER]**
 
 ---
 

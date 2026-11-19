@@ -69,7 +69,8 @@ function hasFallbackGuidance(text: string): boolean {
 
 /**
  * Score context economy (1-3).
- * Dings for generic/fundamental explanations, praises specificity.
+ * Dings for generic/fundamental explanations, but rewards progressive disclosure when
+ * long detail is moved into references/assets with explicit load triggers.
  */
 function scoreContextEconomy(skillMd: string, hasRefsDirOnDisk: boolean, hasAssetsDirOnDisk: boolean): number {
   const genericPatterns = [
@@ -177,6 +178,7 @@ function scoreCalibration(skillMd: string): number {
   const commandExamples = inlineCommands + fencedCommands;
   const hasFallbacks = hasFallbackGuidance(skillMd) || escapeHatches > 0 || defaults > 0;
 
+  // Destructive ops should have exact commands; flexible ops should have escape hatches
   if (destructiveOps > 0 && commandExamples === 0) return 1;
   if (commandExamples >= 1 && hasFallbacks) return 3;
   if (commandExamples >= 2 || mayAlternatives >= 1) return 2;
@@ -239,9 +241,20 @@ function checkStructural(
   const issues: string[] = [];
 
   if (typeof rawFrontmatter.name === "string") {
+    const frontmatterName = rawFrontmatter.name;
     if (rawFrontmatter.name !== parentDir) {
       issues.push(
         `Frontmatter \`name\` ("${rawFrontmatter.name}") does not match parent directory ("${parentDir}")`,
+      );
+    }
+    if (
+      frontmatterName.length < 1 ||
+      frontmatterName.length > 64 ||
+      !/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(frontmatterName) ||
+      frontmatterName.includes("--")
+    ) {
+      issues.push(
+        "Frontmatter `name` must be 1-64 lowercase alphanumeric characters and hyphens, without leading, trailing, or consecutive hyphens",
       );
     }
   } else {
@@ -249,10 +262,24 @@ function checkStructural(
   }
 
   const desc = rawFrontmatter.description;
-  if (typeof desc !== "string" || desc.trim().length < 20) {
+  if (typeof desc !== "string" || desc.trim().length === 0) {
     issues.push(
-      "`description` is missing, too short, or not specific enough for activation",
+      "`description` is missing or empty",
     );
+  } else {
+    const trimmedDescription = desc.trim();
+    if (trimmedDescription.length > 1024) {
+      issues.push("`description` must not exceed 1024 characters");
+    }
+    if (
+      !/\b(?:use|when|for|audit|auditing|create|extract|review|generate|manage|process|help)\b/i.test(
+        trimmedDescription,
+      )
+    ) {
+      issues.push(
+        "`description` should describe the task and when the skill applies so activation matches user intent",
+      );
+    }
   }
 
   // Check relative path references
@@ -270,10 +297,14 @@ function checkStructural(
   // For each reference that says "load references/X.md", check if X.md itself has a "load references/" pattern
   // This is a simple heuristic - a more thorough check would read the referenced files
   if (loadRefs.length > 0) {
-    const nestedHint = skillMd.match(
-      /references\/[^)]+\.md.*references\/[^)]+\.md/gi,
-    );
-    if (nestedHint && nestedHint.length > 0) {
+    // A reference path is a single token. Excluding whitespace, backticks, and
+    // parentheses keeps the pattern from spanning newlines and swallowing prose,
+    // which previously made unrelated lines look like a reference chain.
+    const chainedLine = skillMd.split("\n").find((line) => {
+      const paths = line.match(/references\/[^\s`()]+?\.md/gi) ?? [];
+      return new Set(paths.map((p) => p.toLowerCase())).size > 1;
+    });
+    if (chainedLine) {
       issues.push(
         "Potential nested reference chain detected - keep to one level of depth",
       );
@@ -369,41 +400,41 @@ export function auditSkill(input: AuditInput): SkillAudit {
 function buildReasoning(axis: string, score: number): string {
   const map: Record<number, Record<string, string>> = {
     3: {
-      "Context economy":
+      "context economy":
         "Tight, project-specific content without generic filler",
-      "Gotchas coverage":
+      "gotchas coverage":
         "Strong gotchas section with concrete, environment-specific items",
-      "Procedural clarity":
+      "procedural clarity":
         "Clear step-by-step process with decision criteria",
-      "Progressive disclosure":
+      "progressive disclosure":
         "Well-organized with references/assets and load triggers",
-      Calibration:
+      "calibration":
         "Balanced prescriptiveness with escape hatches for flexible ops",
-      Validation: "Concrete self-check steps with scripts or checklists",
+      "validation": "Concrete self-check steps with scripts or checklists",
     },
     2: {
-      "Context economy":
+      "context economy":
         "Mostly focused but some generic content present",
-      "Gotchas coverage":
+      "gotchas coverage":
         "Has gotchas but could be more specific or comprehensive",
-      "Procedural clarity":
+      "procedural clarity":
         "Some process steps but missing decision criteria or detail",
-      "Progressive disclosure":
+      "progressive disclosure":
         "Partial use of references or assets, could be better organized",
-      Calibration: "Some structure but could tighten prescriptiveness",
-      Validation: "Basic validation present but could be more concrete",
+      "calibration": "Some structure but could tighten prescriptiveness",
+      "validation": "Basic validation present but could be more concrete",
     },
     1: {
-      "Context economy":
+      "context economy":
         "Contains generic/fundamental explanations that waste tokens",
-      "Gotchas coverage":
+      "gotchas coverage":
         "Missing gotchas section or only has generic advice",
-      "Procedural clarity":
+      "procedural clarity":
         "Declares outputs without teaching the approach",
-      "Progressive disclosure":
+      "progressive disclosure":
         "Everything in one file without subdirectory organization",
-      Calibration: "Uniform prescriptiveness or vague on important steps",
-      Validation: "No verification step defined",
+      "calibration": "Uniform prescriptiveness or vague on important steps",
+      "validation": "No verification step defined",
     },
   };
 
