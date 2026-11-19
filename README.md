@@ -13,6 +13,7 @@ skill-forge gives you the tooling to create, review, and improve Copilot agent s
 | [`skill-review`](./skill-review) | Audits existing skills against the agentskills.io rubric. Scores six quality axes and produces an actionable report. Can apply approved improvements. |
 | [`skill-creator`](./skill-creator) | Guides an agent through creating a new skill from a rough idea. Runs a structured interview, picks the right scaffold, and validates output with `skill-review`. |
 | [`skill-review-updater`](./skill-review-updater) | Compares latest agentskills.io guidance to the current `skill-review` rubric and produces a prioritized plan for adding or updating checks. |
+| [`proof-of-execution`](./proof-of-execution) | Verifies a skill with a real task run, records observable evidence, and adds a human-confirmed verification tag. |
 
 More tools will be added to the suite over time.
 
@@ -44,6 +45,7 @@ Copy any skill folder into your target repo under `.agents/skills/<skill-name>/`
 cp -r skill-review/         /path/to/your-project/.agents/skills/skill-review/
 cp -r skill-creator/        /path/to/your-project/.agents/skills/skill-creator/
 cp -r skill-review-updater/ /path/to/your-project/.agents/skills/skill-review-updater/
+cp -r proof-of-execution/   /path/to/your-project/.agents/skills/proof-of-execution/
 ```
 
 Then run your Copilot agent from inside that target repository and invoke skills with natural language prompts.
@@ -78,6 +80,18 @@ cp -r skill-review-updater/ /path/to/your-project/.agents/skills/skill-review-up
 # "check for updates in agentskills.io for skill-review"
 ```
 
+### Verify a skill with a real run
+
+```bash
+# Install proof-of-execution into your project
+cp -r proof-of-execution/ /path/to/your-project/.agents/skills/proof-of-execution/
+
+# Then ask your Copilot agent, providing a representative task:
+# "Run proof of execution on path/to/my-skill using [sample task]"
+```
+
+The skill records evidence outside the repository by default. It adds a `po-verified` tag only after you review the record and explicitly confirm it.
+
 ### Use the skill-review script directly
 
 ```bash
@@ -102,10 +116,14 @@ skill-forge/
 ├── skill-review-updater/  # Plans rubric updates for skill-review from latest best practices
 │   ├── SKILL.md
 │   └── references/        # Baseline, mapping, fallback, and validation guidance
+├── proof-of-execution/    # Verifies skills with evidence from a real run
+│   ├── SKILL.md
+│   └── references/        # Evidence record and sanitization guidance
 └── .agents/skills/        # Installed copies (ready to use in this repo)
     ├── skill-review/
     ├── skill-creator/
-    └── skill-review-updater/
+    ├── skill-review-updater/
+    └── proof-of-execution/
 ```
 
 ---
