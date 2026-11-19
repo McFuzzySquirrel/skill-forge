@@ -85,12 +85,13 @@ cp -r skill-review-updater/ /path/to/your-project/.agents/skills/skill-review-up
 ```bash
 # Install proof-of-execution into your project
 cp -r proof-of-execution/ /path/to/your-project/.agents/skills/proof-of-execution/
-
-# Then ask your Copilot agent, providing a representative task:
-# "Run proof of execution on path/to/my-skill using [sample task]"
 ```
 
-The skill records evidence outside the repository by default. It adds a `po-verified` tag only after you review the record and explicitly confirm it.
+From your target repository, ask your Copilot agent to run the skill on a representative task:
+
+> "Run proof of execution on `.agents/skills/my-skill` using this task: create a README for a sample project with an install section and usage example."
+
+Replace the skill path and task with your own. The target skill must have a clean git state. Review the evidence record; the `po-verified` tag is added only after you explicitly confirm it. Raw records stay outside the repository by default.
 
 ### Use the skill-review script directly
 
